@@ -96,7 +96,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   public hangUp(): void {
-
+    this.localPeerConnection.close();
+    this.remotePeerConnection.close();
+    this.localPeerConnection = null;
+    this.remotePeerConnection = null;
+    this.trace('Ending call.');
   }
 
   // Logs offer creation and sets peer connection session descriptions.
