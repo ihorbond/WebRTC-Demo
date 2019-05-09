@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer2, AfterViewInit, OnInit } from '@angular/core';
 import adapter from 'webrtc-adapter';
 
 const mediaStreamConstraints: MediaStreamConstraints = {
@@ -16,7 +16,7 @@ const offerOptions: RTCOfferOptions = {
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('localVideo') localVideo: ElementRef;
   @ViewChild('remoteVideo') remoteVideo: ElementRef;
 
@@ -32,7 +32,6 @@ export class HomeComponent implements AfterViewInit {
   constructor(private _renderer: Renderer2) { }
 
   ngOnInit() {
-    //this.setupPeerConnection(this.localPeerConnection);
 
   }
 
@@ -101,7 +100,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // Logs offer creation and sets peer connection session descriptions.
-  private createdOffer(description): void {
+  private createdOffer(description: RTCSessionDescription): void {
     this.trace(`Offer from localPeerConnection:\n${description.sdp}`);
 
     this.trace('localPeerConnection setLocalDescription start.');
@@ -123,7 +122,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // Logs answer to offer creation and sets peer connection session descriptions.
-  private createdAnswer(description): void {
+  private createdAnswer(description: RTCSessionDescription): void {
     this.trace(`Answer from remotePeerConnection:\n${description.sdp}.`);
 
     this.trace('remotePeerConnection setLocalDescription start.');
@@ -163,7 +162,7 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-  private handleConnectionChange(e): void {
+  private handleConnectionChange(event): void {
     const peerConnection = event.target as RTCPeerConnection;
     console.log('ICE state change event: ', event);
     this.trace(`${this.getPeerName(peerConnection)} ICE state: ${peerConnection.iceConnectionState}.`);
