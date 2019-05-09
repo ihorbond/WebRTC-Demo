@@ -1,3 +1,22 @@
 <h1>Realtime communication with WebRTC</h1>
 
-<video #video autoplay playsinline></video>
+<div class="row">
+  <div class="col-md-6">
+    <video #localVideo autoplay playsinline></video>
+  </div>
+  <div class="col-md-6">
+    <video #remoteVideo autoplay playsinline></video>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <button (click)="start()">Start</button>
+    <button (click)="call()">Call</button>
+    <button (click)="hangUp()">Hang Up</button>
+  </div>
+</div>
+
+
+
+
+
